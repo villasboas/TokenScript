@@ -1,46 +1,122 @@
-//importa os pacotes usados
 import Token     = require('jsonwebtoken');
 import Validator = require('validator');
 
-//classe de implementacao de web tokens
+/**
+ * 
+ * TokenScript
+ * 
+ * Classe para manipulação e criação de JsonWebTokens. 
+ * 
+ * @author villasboas
+ * @since 11/2016
+ * 
+ */
 export default class TokenScript {
 
-    //atributos da classe
-    private _privateKey      : string = 'osnfoanOJASOjsdoifjaosnKLJNOjas';
-    private _algorithm       : any    = 'HS256';
-    private _token           : string;
-    private _validationRules : {};
-    private _expiration      : any = false;
-    private _decoded         : {};
+    /**
+     * @private
+     * @type {string}
+     * @desc chave usada na encriptação
+     */
+    private _privateKey : string = 'osnfoanOJASOjsdoifjaosnKLJNOjas';
 
-    //metodo construtor
+    /**
+     * @private
+     * @type {any}
+     * @desc algoritimo de encriptação
+     */
+    private _algorithm : any    = 'HS256';
+
+    /**
+     * @private
+     * @type {string}
+     * @desc token gerado
+     */
+    private _token : string;
+
+    /**
+     * @private
+     * @type {object}
+     * @desc regras de validação para o token
+     */
+    private _validationRules : {};
+
+    /**
+     * @private
+     * @type {any}
+     * @desc prazo de validade
+     */
+    private _expiration : any = false;
+
+    /**
+     * @private
+     * @type {object}
+     * @desc dados descriptografados
+     */
+    private _decoded : {};
+
+    /**
+     * Método construtor
+     * 
+     * @param token {string} token de inicialização ( não obrigatório )
+     */
     constructor( token? : string ) {
 
         //seta o token se ele nao existir
         this._token = token ? token : "";
     }
 
-    //seta o algoritimo usado
+    /**
+     * set algoritihm
+     * define qual o algoritimo usado na geração do token
+     * 
+     * @public
+     * @param type {string} o algoritimo que será usado 
+     */
     set algoritihm( type : string ){
         this._algorithm = type;
     }
 
-    //seta as regras de validacao
+    /**
+     * set validationRules
+     * seta as regras de validação usadas na verificação de token
+     * 
+     * @public
+     * @param rules {object} objeto com as regras de configuração
+     */
     set validationRules( rules : {} ) {
         this._validationRules = rules;
     } 
 
-    //seta o token
+    /**
+     * set token
+     * seta um token qualquer 
+     * 
+     * @public
+     * @param token {string} um token TokenScript
+     */
     set token( token : string ) {
         this.token = token;
     }
 
-    //seta o prazo de validade
+     /**
+     * set expiration
+     * seta um prazo de validade para o token
+     * 
+     * @public
+     * @param expiration {any} um dado que pode ser convertido em data
+     */
     set expiration( expiration : any ) {
         this._expiration = expiration;
     }
 
-    //verifica se as regras de validacao são iguais as definidas pela classe
+    /**
+     * _checkRules
+     * Verifica se o token está dentro das regras estabelecidas
+     * 
+     * @private
+     * @return {boolean}
+     */
     private _checkRules() : boolean{
 
         //verifica se o campo de validacao existe
@@ -88,7 +164,14 @@ export default class TokenScript {
         return true;
     }
 
-    //funcao para criar um novo token
+    /**
+     * create
+     * Cria um novo TokenScript
+     * 
+     * @private
+     * @param data {object} um objeto que será guardado no token gerado
+     * @return {create}
+     */
     public create( data : {} ) : string {
 
         //verifica se uma chave foi informada
@@ -115,7 +198,13 @@ export default class TokenScript {
         return this._token;
     }
 
-    //funcao para verificar se um token é valido
+    /**
+     * valid
+     * Informa se um TokenScript é válido ou não, de acordo com as regras definidas
+     * 
+     * @private
+     * @return {boolean}
+     */
     public valid() : boolean {
 
         // Tenta decodificar o token
@@ -137,7 +226,14 @@ export default class TokenScript {
         }
     }
 
-    //pega um item do token decodificado
+    /**
+     * item
+     * Retorna o item informado do token decodificado
+     * 
+     * @private
+     * @param key {string} o item a ser recuperado
+     * @return {any}
+     */
     public item( key : string ) : any {
         
         //verifica se a chave esta definida
