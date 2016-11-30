@@ -1,0 +1,23 @@
+{
+  "name": "jwt",
+  "version": "1.0.0",
+  "description": "Uma classe para JsonWebToken",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run build:live",
+    "build:live": "nodemon --exec ./node_modules/.bin/ts-node -- ./index.ts"
+  },
+  "author": "gu.boas13@gmail.com",
+  "github" : "https://github.com/villasboas/TokenScript", 
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "0.0.1",
+    "express": "^4.14.0",
+    "jsonwebtoken": "^7.1.9",
+    "nodemon": "^1.11.0",
+    "ts-node": "^1.7.0",
+    "typescript": "^2.0.10",
+    "typings": "^2.0.0",
+    "validator": "^6.2.0"
+  }
+}
